@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       auto_increment: true,
     },
     name: DataTypes.STRING,
-  }, {});
+  }, {
+    createdAt: false,
+    updatedAt: false,
+  });
   Role.associate = function (models) {
     // associations can be defined here
     Role.belongsToMany(models.User, {
