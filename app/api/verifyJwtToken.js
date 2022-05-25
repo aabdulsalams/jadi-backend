@@ -5,17 +5,9 @@ const { User } = require('../models');
 module.exports = {
   verifyToken(req, res, next) {
     const tokenHeader = req.headers['x-access-token'];
-
-    if (tokenHeader.split(' ')[0] !== 'Bearer') {
-      return res.status(500).send({
-        auth: false,
-        message: 'Error',
-        errors: 'Incorrect token format',
-      });
-    }
-
-    const token = tokenHeader.split(' ')[1];
-
+    console.log(tokenHeader);
+    const token = tokenHeader.split(' ')[0];
+    console.log(token);
     if (!token) {
       return res.status(403).send({
         auth: false,
@@ -49,8 +41,8 @@ module.exports = {
           }
           res.status(403).send({
             auth: false,
-            message: 'Error',
             message: 'Require Super User Role',
+            errors: ''
           });
         });
       });
