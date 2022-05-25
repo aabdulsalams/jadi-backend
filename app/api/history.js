@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
-const History = require('../models').History;
+const { History } = require('../models');
 
 module.exports = {
   getHistoryById(req, res) {
