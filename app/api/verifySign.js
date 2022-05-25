@@ -54,7 +54,7 @@ module.exports = {
         if (!user) {
           return res.status(404).send({
             auth: false,
-            id: user.id,
+            username: req.body.username,
             accessToken: null,
             message: 'Error',
             errors: 'User Not Found.',
@@ -65,7 +65,7 @@ module.exports = {
         if (!passwordIsValid) {
           return res.status(401).send({
             auth: false,
-            id: user.id,
+            username: req.body.username,
             accessToken: null,
             message: 'Error',
             errors: 'Invalid Password!',
@@ -82,7 +82,7 @@ module.exports = {
           auth: true,
           id: user.id,
           accessToken: token,
-          message: 'Error',
+          message: 'Authentication Success',
           errors: null,
         });
       }).catch((err) => {
