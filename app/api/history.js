@@ -67,12 +67,12 @@ module.exports = {
         scan_date: new Date(),
       })
       .then((his) => {
-        const status = {
+        const history = {
           status_response: 'History Added',
           history: his,
           errors: null,
         };
-        return res.status(201).send(status);
+        return res.status(201).send(history);
       })
       .catch((error) => {
         res.status(400).send({
