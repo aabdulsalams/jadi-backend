@@ -19,13 +19,13 @@ module.exports = function (app) {
   app.get(
     '/api/histories/:id',
     [verifyJwtTokenController.verifyToken],
-    historyController.getAllHistories,
+    historyController.getHistoryById,
   );
 
   app.get(
     '/api/histories',
     [verifyJwtTokenController.verifyToken],
-    historyController.getHistoryById,
+    historyController.getAllHistories,
   );
 
   app.post(
