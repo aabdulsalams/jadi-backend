@@ -62,4 +62,4 @@ function create_roles() {
 //     id: 'disease-second',
 //     name: 'second disease',
 //   });
-}
+// }
