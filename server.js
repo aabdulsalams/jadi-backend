@@ -36,7 +36,7 @@ require('./app/router/router.js')(app);
 
 db.sequelize.sync({ force: true }).then(() => {
   create_roles();
-  create_disease();
+  // create_disease();
   app.listen(port, () => console.log(`${title} run on ${baseUrl}`));
 });
 
@@ -52,14 +52,14 @@ function create_roles() {
   });
 }
 
-function create_disease() {
-  db.Disease.create({
-    id: 'disease-first',
-    name: 'first disease',
-  });
+// function create_disease() {
+//   db.Disease.create({
+//     id: 'disease-first',
+//     name: 'first disease',
+//   });
 
-  db.Disease.create({
-    id: 'disease-second',
-    name: 'second disease',
-  });
+//   db.Disease.create({
+//     id: 'disease-second',
+//     name: 'second disease',
+//   });
 }
