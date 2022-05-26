@@ -3,6 +3,7 @@ const verifySignController = require('../api').verifySign;
 const verifyJwtTokenController = require('../api').verifyJwtToken;
 const historyController = require('../api').history;
 const diseaseController = require('../api').disease;
+const diseaseSuggestionController = require('../api').diseaseSuggestion;
 
 module.exports = function (app) {
   // User Auth
@@ -64,5 +65,36 @@ module.exports = function (app) {
     '/api/diseases/:id',
     [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
     diseaseController.deleteDiseaseById,
+  );
+
+  // Disease Suggestion
+  app.get(
+    '/api/diseases/suggestions/:id',
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    diseaseSuggestionController.getDiseaseSuggestionById,
+  );
+
+  app.get(
+    '/api/diseases/suggestions',
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    diseaseSuggestionController.getAllDiseaseSuggestions,
+  );
+
+  app.post(
+    '/api/diseases/suggestions',
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    diseaseSuggestionController.addDiseaseSuggestion,
+  );
+
+  app.put(
+    '/api/diseases//suggestions/:id',
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    diseaseSuggestionController.updateDiseaseSuggestionById,
+  );
+
+  app.delete(
+    '/api/diseases//suggestions/:id',
+    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    diseaseSuggestionController.deleteDiseaseSuggestionById,
   );
 };
