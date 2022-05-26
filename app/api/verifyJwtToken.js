@@ -39,9 +39,11 @@ module.exports = {
           res.status(403).send({
             auth: false,
             message: 'Require Super User Role',
-            errors: ''
+            errors: null,
           });
         });
+      }).catch((err) => {
+        res.status(500).send({ message: err.message });
       });
   },
 };
