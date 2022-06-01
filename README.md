@@ -11,3 +11,8 @@ Copy `.env.exapmple to .env` and change it if necessary.
 ```
 node server.js
 ```
+OR
+```
+docker build -t jadibackend:1.0 .
+docker run -p 8080:8080 -d jadibackend:1.0
+```
