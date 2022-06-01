@@ -28,7 +28,7 @@ module.exports = {
         if (user) {
           res.status(400).send({
             auth: false,
-            username: req.body.username,
+            email: req.body.email,
             message: 'Error',
             errors: 'Email is already taken!',
           });
