@@ -10,6 +10,8 @@ const config = require('../config/configRoles');
 
 module.exports = {
   signup(req, res) {
+    const tempRole = ['USER'];
+
     return User
       .create({
         id: `user-${nanoid(16)}`,
@@ -20,7 +22,7 @@ module.exports = {
         Role.findAll({
           where: {
             name: {
-              [Op.or]: req.body.roles,
+              [Op.or]: req.body.roles || tempRole,
             },
           },
         }).then((roles) => {
@@ -75,12 +77,13 @@ module.exports = {
         const token = `${jwt.sign({
           id: user.id,
         }, config.secret, {
-          expiresIn: 86400, // 24 Hours
+          // expiresIn: 86400, // 24 Hours
         })}`;
 
         res.status(200).send({
           auth: true,
           id: user.id,
+          username: user.username,
           accessToken: token,
           message: 'Authentication Success',
           errors: null,
