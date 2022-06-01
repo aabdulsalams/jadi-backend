@@ -80,13 +80,17 @@ module.exports = {
           // expiresIn: 86400, // 24 Hours
         })}`;
 
-        res.status(200).send({
-          auth: true,
+        const userResult = {
           id: user.id,
           username: user.username,
           accessToken: token,
+        };
+
+        res.status(200).send({
+          auth: true,
           message: 'Authentication Success',
           errors: null,
+          userResult,
         });
       }).catch((err) => {
         res.status(500).send({ message: err.message });
