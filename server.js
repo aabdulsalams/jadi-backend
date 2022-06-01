@@ -34,8 +34,8 @@ app.use((req, res, next) => {
 
 require('./app/router/router.js')(app);
 
-db.sequelize.sync({ force: true }).then(() => {
-  create_roles();
+db.sequelize.sync().then(() => {
+  // create_roles();
   // create_disease();
   app.listen(port, () => console.log(`${title} run on ${baseUrl}`));
 });
