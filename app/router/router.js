@@ -7,11 +7,18 @@ const diseaseSuggestionController = require('../api').diseaseSuggestion;
 
 module.exports = function (app) {
   // User Auth
+  // app.post(
+  //   '/api/auth/signup',
+  //   [verifySignUpController.checkDuplicateUserNameOrEmail,
+  //     verifySignUpController.checkRolesExisted,
+  //   ],
+  //   verifySignController.signup,
+  // );
+
+  // User Auth
   app.post(
     '/api/auth/signup',
-    [verifySignUpController.checkDuplicateUserNameOrEmail,
-      verifySignUpController.checkRolesExisted,
-    ],
+    [verifySignUpController.checkDuplicateUserNameOrEmail],
     verifySignController.signup,
   );
 
