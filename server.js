@@ -40,6 +40,8 @@ db.sequelize.sync().then(() => {
   app.listen(port, () => console.log(`${title} run on ${baseUrl}`));
 });
 
+console.log('testing ci/cd');
+
 function create_roles() {
   db.Role.create({
     id: 1,
