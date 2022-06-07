@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     user_id: DataTypes.STRING,
     disease_id: DataTypes.STRING,
+    image_url: DataTypes.STRING,
     scan_date: DataTypes.DATE,
   }, {
     createdAt: false,

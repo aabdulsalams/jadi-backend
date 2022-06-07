@@ -1,13 +1,19 @@
 const { nanoid } = require('nanoid');
-const { History } = require('../models');
+const { History, Disease } = require('../models');
+const uploadImage = require('../helpers/helpers');
 
 module.exports = {
   getHistoryById(req, res) {
     return History
       .findByPk(req.params.id, {
-        include: [],
+        include: [{
+          model: Disease,
+          required: true,
+        }],
       })
       .then((his) => {
+        console.log('masuk');
+        console.log(his);
         if (!his) {
           return res.status(404).send({
             status_response: 'Not Found',
@@ -58,27 +64,54 @@ module.exports = {
       });
   },
 
-  addHistory(req, res) {
-    return History
-      .create({
-        id: `history-${nanoid(16)}`,
-        user_id: req.userId,
-        disease_id: req.body.disease_id,
-        scan_date: new Date(),
+  async addHistory(req, res) {
+    let imageUrl = null;
+    try {
+      const myFile = req.file;
+      imageUrl = await uploadImage(myFile);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      Disease.findOne({
+        where: {
+          name: req.body.name,
+        },
+      }).then((disease) => {
+        if (!disease) {
+          return res.status(400).send({
+            auth: false,
+            name: req.body.name,
+            message: 'Error',
+            errors: 'Disease Not Found',
+          });
+        }
+        console.log(imageUrl);
+        return History
+          .create({
+            id: `history-${nanoid(16)}`,
+            user_id: req.userId,
+            disease_id: disease.id,
+            image_url: imageUrl,
+            scan_date: new Date(),
+          })
+          .then((his) => {
+            const history = {
+              status_response: 'History Added',
+              history: his,
+              errors: null,
+            };
+            return res.status(201).send(history);
+          })
+          .catch((error) => {
+            res.status(400).send({
+              status_response: 'Bad Request',
+              errors: error,
+            });
+          });
       })
-      .then((his) => {
-        const history = {
-          status_response: 'History Added',
-          history: his,
-          errors: null,
-        };
-        return res.status(201).send(history);
-      })
-      .catch((error) => {
-        res.status(400).send({
-          status_response: 'Bad Request',
-          errors: error,
+        .catch((error) => {
+          console.log(error);
         });
-      });
+    }
   },
 };

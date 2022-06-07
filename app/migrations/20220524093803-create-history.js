@@ -12,6 +12,9 @@ module.exports = {
       disease_id: {
         type: Sequelize.STRING,
       },
+      image_url: {
+        type: Sequelize.STRING,
+      },
       scan_date: {
         type: Sequelize.DATE,
       },

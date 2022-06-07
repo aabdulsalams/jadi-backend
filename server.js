@@ -1,10 +1,18 @@
 require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
 const logger = require('morgan');
 const db = require('./app/models');
 
 const app = express();
+
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -13,6 +21,9 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static('app/public'));
+
+app.disable('x-powered-by');
+app.use(multerMid.single('file'));
 
 // Set app config
 const title = process.env.TITLE;
