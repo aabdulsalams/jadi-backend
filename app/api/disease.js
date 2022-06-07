@@ -57,6 +57,7 @@ module.exports = {
       .create({
         id: `disease-${nanoid(16)}`,
         name: req.body.name,
+        description: req.body.description,
       })
       .then((dis) => {
         const disease = {
@@ -88,6 +89,7 @@ module.exports = {
         return disease
           .update({
             name: req.body.name || disease.name,
+            description: req.body.description || disease.description,
           })
           .then((dis) => {
             const diseaseTemp = {
