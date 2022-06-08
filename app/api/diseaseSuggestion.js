@@ -4,8 +4,11 @@ const { DiseaseSuggestion } = require('../models');
 module.exports = {
   getDiseaseSuggestionById(req, res) {
     return DiseaseSuggestion
-      .findByPk(req.params.id, {
+      .findByPk(req.params.suggestionId, {
         include: [],
+        where: {
+          disease_id: req.params.diseaseId,
+        },
       })
       .then((dis) => {
         if (!dis) {
@@ -34,6 +37,9 @@ module.exports = {
       .findAll({
         limit: 10,
         include: [],
+        where: {
+          disease_id: req.params.diseaseId,
+        },
       })
       .then((diss) => {
         const diseaseSuggestions = {
@@ -56,7 +62,7 @@ module.exports = {
     return DiseaseSuggestion
       .create({
         id: `diseaseSuggestion-${nanoid(16)}`,
-        disease_id: req.body.disease_id,
+        disease_id: req.params.diseaseId,
         suggestion: req.body.suggestion,
       })
       .then((dis) => {
@@ -77,7 +83,11 @@ module.exports = {
 
   updateDiseaseSuggestionById(req, res) {
     return DiseaseSuggestion
-      .findByPk(req.params.id, {})
+      .findByPk(req.params.suggestionId, {
+        where: {
+          disease_id: req.params.diseaseId,
+        },
+      })
       .then((diseaseSuggestion) => {
         if (!diseaseSuggestion) {
           return res.status(404).send({
@@ -88,7 +98,6 @@ module.exports = {
 
         return diseaseSuggestion
           .update({
-            disease_id: req.body.disease_id || diseaseSuggestion.disease_id,
             suggestion: req.body.suggestion || diseaseSuggestion.suggestion,
           })
           .then((dis) => {
@@ -116,7 +125,12 @@ module.exports = {
 
   deleteDiseaseSuggestionById(req, res) {
     return DiseaseSuggestion
-      .findByPk(req.params.id)
+      .findByPk(req.params.suggestionId, {
+        include: [],
+        where: {
+          disease_id: req.params.diseaseId,
+        },
+      })
       .then((diseaseSuggestion) => {
         if (!diseaseSuggestion) {
           return res.status(400).send({
