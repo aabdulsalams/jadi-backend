@@ -12,7 +12,6 @@ module.exports = {
         }],
       })
       .then((his) => {
-        console.log('masuk');
         console.log(his);
         if (!his) {
           return res.status(404).send({
@@ -38,8 +37,8 @@ module.exports = {
   getAllHistories(req, res) {
     return History
       .findAll({
-        limit: 10,
-        include: [],
+        limit: 50,
+        include: ['disease'],
         where: {
           user_id: req.userId,
         },
@@ -57,6 +56,7 @@ module.exports = {
         res.status(200).send(histories);
       })
       .catch((error) => {
+        console.log(error);
         res.status(400).send({
           status_response: 'Bad Request',
           errors: error,
