@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
-const { History, Disease } = require('../models');
+const { History, Disease, Sequelize } = require('../models');
 const uploadImage = require('../helpers/helpers');
 
 module.exports = {
@@ -38,7 +38,14 @@ module.exports = {
     return History
       .findAll({
         limit: 50,
-        include: ['disease'],
+        include: [{
+          model: Disease,
+          as: 'disease',
+          attributes: [],
+        }],
+        attributes: {
+          include: [[Sequelize.col('name'), 'disease_name']],
+        },
         where: {
           user_id: req.userId,
         },
