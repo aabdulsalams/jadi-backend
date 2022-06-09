@@ -15,9 +15,6 @@ module.exports = {
       control: {
         type: Sequelize.STRING,
       },
-      precautions: {
-        type: Sequelize.STRING,
-      },
     });
   },
   async down(queryInterface, Sequelize) {

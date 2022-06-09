@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     disease_id: DataTypes.STRING,
-    suggestion: DataTypes.STRING,
+    suggestion: DataTypes.TEXT,
   }, {
     createdAt: false,
     updatedAt: false,

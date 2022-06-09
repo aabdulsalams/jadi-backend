@@ -6,9 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    control: DataTypes.STRING,
-    precautions: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    control: DataTypes.TEXT,
   }, {
     createdAt: false,
     updatedAt: false,
