@@ -58,6 +58,8 @@ module.exports = {
         id: `disease-${nanoid(16)}`,
         name: req.body.name,
         description: req.body.description,
+        control: req.body.control,
+        precautions: req.body.precautions,
       })
       .then((dis) => {
         const disease = {
