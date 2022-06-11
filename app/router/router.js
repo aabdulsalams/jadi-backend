@@ -46,7 +46,7 @@ module.exports = function (app) {
   // Disease
   app.get(
     '/api/diseases/:id',
-    [verifyJwtTokenController.verifyToken, verifyJwtTokenController.isSuperUser],
+    [verifyJwtTokenController.verifyToken],
     diseaseController.getDiseaseById,
   );
 
