@@ -14,14 +14,21 @@ module.exports = {
             errors: 'Disease Not Found',
           });
         }
+        const {
+          id, name, description, control,
+        } = dis;
         const disease = {
           status_response: 'OK',
-          disease: dis,
+          id,
+          name,
+          description,
+          control,
           errors: null,
         };
         return res.status(200).send(disease);
       })
       .catch((error) => {
+        console.log(error);
         res.status(400).send({
           status_response: 'Bad Request',
           errors: error,
