@@ -8,8 +8,15 @@ module.exports = {
       .findByPk(req.params.id, {
         include: [{
           model: Disease,
-          required: true,
+          as: 'disease',
+          attributes: [],
         }],
+        attributes: {
+          include: [[Sequelize.col('name'), 'disease_name'], [Sequelize.col('description'), 'disease_description'], [Sequelize.col('control'), 'disease_control']],
+        },
+        where: {
+          user_id: req.userId,
+        },
       })
       .then((his) => {
         console.log(his);
@@ -27,6 +34,7 @@ module.exports = {
         return res.status(200).send(history);
       })
       .catch((error) => {
+        console.log(error);
         res.status(400).send({
           status_response: 'Bad Request',
           errors: error,
