@@ -96,4 +96,20 @@ module.exports = {
         res.status(500).send({ message: err.message });
       });
   },
+
+  signout(req, res) {
+    const bearerHeader = req.headers.authorization;
+
+    jwt.sign(bearerHeader, '', { expiresIn: 1 }, (logout, err) => {
+      if (logout) {
+        res.status(200).send({
+          auth: false,
+          message: 'You have been Logged Out',
+          errors: null,
+        });
+      } else {
+        res.status(500).send({ message: err.message });
+      }
+    });
+  },
 };

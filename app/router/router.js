@@ -23,6 +23,7 @@ module.exports = function (app) {
   );
 
   app.post('/api/auth/signin', verifySignController.signin);
+  app.post('/api/auth/logout', verifySignController.signout);
 
   // History
   app.get(
